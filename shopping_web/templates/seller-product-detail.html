@@ -1,0 +1,106 @@
+{% extends "seller-header.html" %}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Product Detail</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body class="animsition">
+
+	
+
+	<!-- Product Detail -->
+	<section class="sec-product-detail bg0 p-t-100 p-b-60">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-7 p-b-30">
+					<div class="p-l-25 p-r-30 p-lr-0-lg">
+						<div class="wrap-slick3 flex-sb flex-w">
+							<div class="wrap-slick3-dots"></div>
+							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+							<div class="slick3 gallery-lb">
+								<div class="item-slick3" data-thumb="{{product.product_fimage.url}}">
+									<div class="wrap-pic-w pos-relative">
+										<img src="{{product.product_fimage.url}}" alt="IMG-PRODUCT">
+
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{product.product_fimage.url}}">
+											<i class="fa fa-expand"></i>
+										</a>
+									</div>
+								</div>
+
+								<div class="item-slick3" data-thumb="{{product.product_bimage.url}}">
+									<div class="wrap-pic-w pos-relative">
+										<img src="{{product.product_bimage.url}}" alt="IMG-PRODUCT">
+
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{product.product_bimage.url}}">
+											<i class="fa fa-expand"></i>
+										</a>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+					
+				<div class="col-md-6 col-lg-5 p-b-30">
+					<div class="p-r-50 p-t-5 p-lr-0-lg">
+						<h3 class=" cl2  p-b-14">
+							{{product.product_name}}
+						</h3>
+                        <h6 class="cl2  p-b-14">
+							Price : {{product.product_price}}
+						</h6>
+                        <h6 class="cl2  p-b-14">
+							Size : {{product.product_size}}
+						</h6>
+                        <p class="mtext-50 cl2  p-b-14">
+							Description : {{product.product_desc}}
+						</p>
+
+
+	
+
+						<!--  -->
+						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                            <div class="modal-footer">
+                                <button type="submit"  class="btn btn-primary btn-block m-t-8">
+                                    <a style="color:white;" href="{% url 'seller-edit-product' pk=product.pk %}">Edit Product</a>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-block">
+                                    <a style="color:white;" href="{% url 'seller-product-delete' pk=product.pk %}">Delete Product</a>
+                                </button>
+                              </div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
+			<span class="stext-107 cl6 p-lr-25">
+				SKU: JAK-01
+			</span>
+
+			<span class="stext-107 cl6 p-lr-25">
+				Categories: Jacket, Men
+			</span>
+		</div>
+	</section>
+
+
+		
+
+
+</body>
+</html>
+{%endblock%}

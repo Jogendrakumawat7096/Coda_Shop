@@ -1,0 +1,39 @@
+{% extends "header.html" %}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Payment Success</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+
+	<style>
+
+
+		.k {
+			margin-top: 100px;
+			margin-bottom: 100px;
+			text-align: center;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h4 {
+			color: #28a745; /* Bootstrap success color */
+		}
+	</style>
+</head>
+<body class="animsition">
+    <div class="k">
+        <h4>Payment Successful</h4>
+        <p>Thank you for your purchase. Your payment was successful.</p>
+        
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends "header.html" %}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Product Detail</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<style>
+
+	
+		.product {
+		  background-color: #fff;
+		  border: 1px solid #ddd;
+		  padding: 20px;
+		  margin-bottom: 20px;
+		}
+	
+		.btn {
+		  display: inline-block;
+		  padding: 20px 30px;
+		  text-align: center;
+		  text-decoration: none;
+		  font-size: 16px;
+		  cursor: pointer;
+		  
+		}
+	
+		.btn-a{
+		  background-color: #ff3f6c;
+		  color: #fff;
+		  border: 1px #ff3f6c;
+		  font-weight: bold;
+		  width:250px;
+		}
+	
+		.btn-wishlist {
+		  background-color: white;
+		  color: black;
+		  border: 1px solid black;
+		  font-weight: bold;
+		  width:200px;
+		}
+		.btn-wishlist-r {
+			background-color: white;
+			color: black;
+			border: 1px solid black;
+			font-weight: bold;
+			width:250px;
+		  }
+	
+		/* Style the buttons for different states (hover, active) */
+		.btn:hover, .btn:active,.btn-a:hover {
+		  opacity: 0.8;
+		}
+		.bi-heart-fill{
+			color: #ff3f6c
+		}
+	  </style>
+</head>
+<body class="animsition">
+
+	
+
+	<!-- Product Detail -->
+	<section class="sec-product-detail bg0 p-t-100 p-b-60">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-7 p-b-30">
+					<div class="p-l-25 p-r-30 p-lr-0-lg">
+						<div class="wrap-slick3 flex-sb flex-w">
+							<div class="wrap-slick3-dots"></div>
+							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+							<div class="slick3 gallery-lb">
+								<div class="item-slick3" data-thumb="{{product.product_fimage.url}}">
+									<div class="wrap-pic-w pos-relative">
+										<img src="{{product.product_fimage.url}}" alt="IMG-PRODUCT">
+
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{product.product_fimage.url}}">
+											<i class="fa fa-expand"></i>
+										</a>
+									</div>
+								</div>
+
+								<div class="item-slick3" data-thumb="{{product.product_bimage.url}}">
+									<div class="wrap-pic-w pos-relative">
+										<img src="{{product.product_bimage.url}}" alt="IMG-PRODUCT">
+
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{product.product_bimage.url}}">
+											<i class="fa fa-expand"></i>
+										</a>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+					
+				<div class="col-md-6 col-lg-5 p-b-30">
+					<div class="p-r-50 p-t-5 p-lr-0-lg">
+						<h3 class=" cl2  p-b-14">
+							{{product.product_name}}
+						</h3>
+                        <h6 class="cl2  p-b-14">
+							Price : {{product.product_price}}
+						</h6>
+                        <h6 class="cl2  p-b-14">
+							Size : {{product.product_size}}
+						</h6>
+                        <p class="mtext-50 cl2  p-b-14">
+							Description : {{product.product_desc}}
+						</p>
+
+
+	
+
+						<!--  -->
+						<div class="flex-w flex-m p-l-100 p-t-40 responsive">
+
+							<div class="modal-footer">
+								{% if cart_flag == True %}
+									<a href="{%url 'shoping-cart' %}" class="btn btn-a"><i class="bi bi-arrow-right"></i> GO TO CART</a>
+								{% else %}
+									<a href="{% url 'add-to-cart' pk=product.pk %}" class="btn btn-a"><i class="bi bi-handbag-fill"></i> ADD TO CART</a>
+								{% endif %}
+								{% if whishlist_flag == True %}
+									<a href="{% url 'remove-whishlist' pk=product.pk %}" class="btn btn-wishlist-r">
+										REMOVE FROM WISHLIST
+									</a>
+								{% else %}
+									<a href="{% url 'add-to-whishlist' pk=product.pk %}" class="btn btn-wishlist">
+										<i class="bi bi-heart"></i> WISHLIST
+									</a>
+								{% endif %}
+							</div>
+						
+						</div>
+						
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
+			<span class="stext-107 cl6 p-lr-25">
+				SKU: JAK-01
+			</span>
+
+			<span class="stext-107 cl6 p-lr-25">
+				Categories: Jacket, Men
+			</span>
+		</div>
+	</section>
+
+
+		
+
+
+</body>
+</html>
+{%endblock%}

@@ -1,0 +1,138 @@
+{% extends "seller-header.html" %}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>Sign Up</title>
+
+
+    <style>
+        .signup-container {
+            max-width: 500px;
+            margin: 100px auto;
+          }
+          
+          .signup-container .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+          
+          .signup-container .card-header {
+            background-color: #232f3e;
+            color: #fff;
+            text-align: center;
+          }
+          
+          .signup-container .card-body {
+            padding: 20px;
+          }
+          
+          .signup-container .form-group {
+            margin-bottom: 20px;
+          }
+          
+          .signup-container .btn-primary {
+            background-color: #f0c14b;
+            border-color: #a88734 #9c7e31 #846a29;
+          }
+          
+          .signup-container .btn-primary:hover {
+            background-color: #ffdb58;
+          }
+          
+          .signup-container .btn-link {
+            color: #007bff;
+          }
+    </style>
+
+  </head>
+  <body>
+
+    <div class="container signup-container m-t-600">
+      <div class="card">
+        <div class="card-header">
+          <h3>Add Product</h3>
+        </div>
+        <div class="card-body">
+          <!-- Add your sign-up form here -->
+          {%if msg%}
+            <div class="alert alert-success" role="alert">
+              {{msg}}
+            </div>
+          {%endif%}
+          
+          <form method="post", action="{%url "seller-add-product" %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+              <label>Product Name</label>
+              <input type="text" class="form-control"  name="product-name" placeholder="Enter Product name" required>
+            </div>
+            <div class="form-group">
+                <label>Product Price</label>
+                <input type="text" class="form-control"  name="product-price" placeholder="Enter Product Price" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Product Category</label>
+                <select style="width:350px" name="product-category">
+                  <option >---Select Product Category---</option>
+                  <option value="Men">Men</option>
+                  <option value="Women">Women</option>
+                  <option value="kids">kids</option>
+  
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="name">Product Brand</label>
+                <select style="width:350px" name="product-brand">
+                  <option >---Select Product Brand---</option>
+                  <option value="luvis">luvis</option>
+                  <option value="Diesel">Diesel</option>
+                  <option value="polo">polo</option>
+  
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="name">Product Size</label>
+                <select style="width:350px" name="product-size">
+                  <option >---Select Product Size---</option>
+                  <option value="s">s</option>
+                  <option value="l">l</option>
+                  <option value="xl">xl</option>
+                  <option value="xxl">xxl</option>
+  
+                </select>
+              </div>
+            <div class="form-group">
+              <label for="address">product Description</label>
+              <textarea class="form-control"  name="product-desc" placeholder="Enter Product Descriptions" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+              <label >Product Front Image</label>
+              <input type="file" class="form-control-file"  name="product-fimage" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label >Product Back Image</label>
+                <input type="file" class="form-control-file"  name="product-bimage" accept="image/*" required>
+              </div>
+            <button type="submit" name="action" class="btn btn-primary btn-block">Add Product</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
+
+
+</body>
+</html>
+{%endblock%}

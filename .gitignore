@@ -1,0 +1,8 @@
+# PythonAnywhere ignores
+*.pyc
+*~
+__pycache__
+# Other ignored files
+.env
+myvenv/
+env/
