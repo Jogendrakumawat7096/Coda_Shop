@@ -43,6 +43,10 @@ urlpatterns = [
     path('seller-view-order/',views.seller_view_order,name='seller-view-order'),
     path('seller-cancel-order/<int:pk>/',views.seller_cancel_order,name='seller-cancel-order'),
     path('seller-accept-order/<int:pk>/',views.seller_accept_order,name='seller-accept-order'),
+    path('seller-shipped-order/<int:pk>/',views.seller_shipped_order,name='seller-shipped-order'),
+    
+
+    
     
     
     

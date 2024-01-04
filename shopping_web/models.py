@@ -14,7 +14,14 @@ class User(models.Model):
     
     def __str__(self):
         return self.name
+
+class Contact(models.Model):
+    email=models.EmailField()
+    message=models.TextField()
     
+    def __str__(self):
+        self.email
+
 class Product(models.Model):
     Category=(
         ("Men","Men"),

@@ -15,6 +15,7 @@ import os
 
 STRIPE_PUBLIC_KEY = 'pk_test_51ORGX1SCMGvokPZBuGoSPSO3El8Xc0Htb0OX2dKBwGyAftyRRAqWyfBrBKnHMYbKHtDUkMEHNgw6LQqyPe5nqYce00wG8Eq4yf'
 STRIPE_SECRET_KEY = 'sk_test_51ORGX1SCMGvokPZBpdiuiQgSvwoXj86d62yHPqJtleFuVktMBV8ULi5gdyZrLBl1Q9aolktwuwnLO4GD4OrXllhG00jINmbqGm'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,7 +32,7 @@ SECRET_KEY = 'django-insecure-oiui4&rjfa!f9*ml%+3==ld7nws01%(ez))^=d_ffg^3h#4%ha
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+JET_DEFAULT_THEME = 'light-violet'
 
 # Application definition
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shopping_web',
+    'jet',
 ]
 
 MIDDLEWARE = [

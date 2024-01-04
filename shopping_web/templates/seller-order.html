@@ -131,8 +131,10 @@
                                             <td class="column-6">{{ order.order_status }}</td>
                                             <td class="column-7">{{ order.order_date }}</td>
                                             <td class="column-8">
-                                                <a href="{% url 'seller-cancel-order' pk=order.pk %}" class="btn-remove"><i style="font-size:40px;color:red" class="bi bi-x-circle"></i></a>
-                                                <a href="{% url 'seller-accept-order' pk=order.pk %}" class="btn-accept"><i class="bi bi-check2-circle" style="font-size:50px"></i></a>
+                                                <a href="{% url 'seller-cancel-order' pk=order.pk %}" class="btn-remove"><i style="font-size:20px;color:red" class="bi bi-x-circle"></i></a>
+                                                <a href="{% url 'seller-accept-order' pk=order.pk %}" class="btn-accept"><i class="bi bi-check2-circle" style="font-size:30px;margin-right:10px"></i></a>
+                                                <a href="{% url 'seller-shipped-order' pk=order.pk %}" class="btn-accept">Order Shipped</a>                                               
+
                                             </td>
                                         </tr>
                                     {% endfor %}

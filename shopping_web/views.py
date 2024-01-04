@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.shortcuts import render,redirect
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
-from .models import User,Product,Whishlist,Cart,Order
+from .models import User,Product,Whishlist,Cart,Order,Contact
 import random
 import requests
 from django.http import JsonResponse,HttpResponse
@@ -17,14 +17,13 @@ import stripe
 stripe.api_key = "sk_test_51ORGX1SCMGvokPZBpdiuiQgSvwoXj86d62yHPqJtleFuVktMBV8ULi5gdyZrLBl1Q9aolktwuwnLO4GD4OrXllhG00jINmbqGm"
 
 YOUR_DOMAIN = "http://localhost:8000"
-
 @csrf_exempt
 def create_checkout_session(request):
     
     data = json.loads(request.body.decode('utf-8'))
     amount = int(data['amount'])
  
-    final_amount = amount *0
+    final_amount = amount*0
 
     try:
         session = stripe.checkout.Session.create(
@@ -44,21 +43,6 @@ def create_checkout_session(request):
             cancel_url=YOUR_DOMAIN + '/cancel',
         )
 
-        cart_items = Cart.objects.filter(payment_status=False)
-        user=User.objects.get(email=request.session['email'])
-        for cart_item in cart_items:
-            Order.objects.create(
-                buyer=user,
-                product=cart_item.product,
-                product_price=cart_item.product_price,
-                product_qty=cart_item.product_qty,
-                total_price=(cart_item.total_price)+199,
-            )
-
-        cart= Cart.objects.all()
-        cart.delete()
-        total_cart = Cart.objects.filter(buyer=user).count()
-        request.session['total_cart'] = total_cart 
         
     except Exception as e:
         return JsonResponse({'error': str(e)})
@@ -70,7 +54,24 @@ def create_checkout_session(request):
 
 
 
+
 def success(request):
+    
+    cart_items = Cart.objects.filter(payment_status=False)
+    user = User.objects.get(email=request.session['email'])
+    for cart_item in cart_items:
+        Order.objects.create(
+            buyer=user,
+            product=cart_item.product,
+            product_price=cart_item.product_price,
+            product_qty=cart_item.product_qty,
+            total_price=(cart_item.total_price) + 199,
+        )
+        # Delete the current cart item
+        cart_item.delete()
+
+    total_cart = Cart.objects.filter(buyer=user).count()
+    request.session['total_cart'] = total_cart 
     return render(request,"success.html")
 
 def cancel(request):
@@ -116,6 +117,13 @@ def about(request):
     return render(request,"about.html")
 
 def contact(request):
+    if request.method=="POST":
+        Contact.objects.create(
+            email=request.POST['email'],
+            message=request.POST['msg']
+        )
+        msg="Message Sent Successfully"
+        return render(request,"contact.html",{'msg':msg})
     return render(request,"contact.html")
 
 def product_detail(request):
@@ -520,13 +528,17 @@ def customer_cancel_order(request,pk):
 
 
 def seller_view_order(request):
-    user=User.objects.get(email=request.session['email'])
-    product=Product.objects.get(seller=user)
-    orders = Order.objects.filter(
-    Q(order_status="Accepted") | Q(order_status="Pending"),
-    product=product
-)
-    return render(request,"seller-order.html",{'orders':orders})
+    try:
+        user = User.objects.get(email=request.session['email'])
+        products = Product.objects.filter(seller=user)
+        orders = Order.objects.filter(product__in=products)
+        return render(request, "seller-order.html", {'orders': orders})
+    except User.DoesNotExist:
+        return HttpResponse("User not found")
+    except Product.DoesNotExist:      
+        return HttpResponse("No products found for the user")
+
+
 
 def seller_cancel_order(request,pk):
     order = Order.objects.get(pk=pk)
@@ -538,6 +550,13 @@ def seller_cancel_order(request,pk):
 def seller_accept_order(request,pk):
     order = Order.objects.get(pk=pk)
     order.order_status = "Accepted"
+    order.save()
+
+    return redirect('seller-view-order')
+
+def seller_shipped_order(request,pk):
+    order = Order.objects.get(pk=pk)
+    order.order_status = "Shipped"
     order.save()
 
     return redirect('seller-view-order')
