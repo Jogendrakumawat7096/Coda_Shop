@@ -16,7 +16,7 @@ import stripe
 
 stripe.api_key = "sk_test_51ORGX1SCMGvokPZBpdiuiQgSvwoXj86d62yHPqJtleFuVktMBV8ULi5gdyZrLBl1Q9aolktwuwnLO4GD4OrXllhG00jINmbqGm"
 
-YOUR_DOMAIN = "http://localhost:8000"
+YOUR_DOMAIN = "http://jogendra7773.pythonanywhere.com"
 @csrf_exempt
 def create_checkout_session(request):
     
